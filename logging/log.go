@@ -48,9 +48,6 @@ func main() {
 	}
 	defer f.Close()
 
-	// Multi outputs
-	// multi := io.MultiWriter(f, os.Stdout)
-
 	// ioutil.Discard can be used to disable logging
 	Init(
 		ioutil.Discard, // To nowhere

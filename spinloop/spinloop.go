@@ -12,7 +12,7 @@ func do() {
 	// Nothing
 }
 
-func spinLoopConsumer(send chan struct{}, recv chan struct{}) {
+func spinLoopConsumer(send chan struct{}) {
 	for {
 		select {
 		case <-send: // Get a request
@@ -24,7 +24,7 @@ func spinLoopConsumer(send chan struct{}, recv chan struct{}) {
 	}
 }
 
-func producer(send chan struct{}, recv chan struct{}) {
+func producer(send chan struct{}) {
 	start := time.Now()
 	// Signal 100000 requst
 	for i := 1; i < 100000; i++ {
@@ -36,9 +36,8 @@ func producer(send chan struct{}, recv chan struct{}) {
 
 func main() {
 	send := make(chan struct{})
-	recv := make(chan struct{})
-	go producer(send, recv)
-	go spinLoopConsumer(send, recv)
+	go producer(send)
+	go spinLoopConsumer(send)
 
 	var input string
 	fmt.Scan(&input)
